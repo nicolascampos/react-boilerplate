@@ -40,7 +40,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: BUILD_DIR,
+    static: BUILD_DIR,
     compress: true,
     hot: true,
     port: 9001,
@@ -61,8 +61,5 @@ module.exports = {
       template: `${APP_DIR}/index.html`,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
   ],
 };
