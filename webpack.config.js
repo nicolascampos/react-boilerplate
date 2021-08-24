@@ -1,5 +1,5 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const BUILD_DIR = path.join(__dirname, 'dist');
@@ -7,33 +7,31 @@ const APP_DIR = path.join(__dirname, 'src');
 
 module.exports = {
   entry: {
-    bundle: `${APP_DIR}/app.js`,
+    bundle: `${APP_DIR}/app.tsx`,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
+    filename: '[name].[fullhash].js',
     publicPath: '/',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
           babelrc: false,
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          presets: ["@babel/react", "@babel/typescript", ["@babel/env", { "modules": false }]],
         },
-      },
-      {
+      }, {
+        test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre"
+      }, {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
+      }, {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: 'file-loader',
       },
