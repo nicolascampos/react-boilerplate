@@ -22,7 +22,19 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           babelrc: false,
-          presets: ["@babel/react", "@babel/typescript", ["@babel/env", { "modules": false }]],
+          presets: [
+            [
+              "@babel/react", {
+                "runtime": "automatic"
+              },
+            ],
+            "@babel/typescript",
+            [
+              "@babel/env", {
+                "modules": false 
+              }
+            ]
+          ],
         },
       }, {
         test: /\.js$/,
@@ -60,4 +72,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+  resolve: {
+    extensions: [".js", ".json", ".ts", ".tsx"],
+  },
 };
